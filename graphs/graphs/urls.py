@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+import rest_framework
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api-auth/', rest_framework.urls)
 ]
