@@ -23,6 +23,8 @@ class PersonViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
     def shortest_path(self, request):
+        start_id = request.query_params.get("start",None)
+        end_id = request.query_params.get("end", None)
         graph = Graph("bolt://neo4j:adminpass@localhost:7687")
-        path = graph.run("MATCH (b1:Person {name: 'Jim'}),(b2:Person {name: 'superman'}), p = shortestPath((b1)-[*..15]-(b2)) RETURN p").to_ndarray()
+        path = graph.run("MATCH (b1:Person {uid: '"+start_id+"'}),(b2:Person {name: '"+end_id+"'}), p = shortestPath((b1)-[*..15]-(b2)) RETURN p").to_ndarray()
         return list(path.shape)[-1]
