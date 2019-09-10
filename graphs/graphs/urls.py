@@ -14,15 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf.urls import url, include
 from django.urls import path
-import rest_framework
+from rest_framework import urls
 from rest_framework import routers
 from persons.views import PersonViewSet
 
 router = routers.SimpleRouter()
-router.register(r'persons', PersonViewSet)
+router.register(r'persons', PersonViewSet, basename='persons')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', rest_framework.urls),
-] + router.urls
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))] + router.urls

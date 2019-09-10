@@ -35,7 +35,7 @@ class StructuredThingSerializer(object):
                 self.data['id'] = self.instance.id
 
             self.process_properties(props)
-        self.serialized_data = json.dumps(self.data)
+        self.serialized_data = json.dumps(self.data, sort_keys=True, default=str)
 
     def should_include(self, key):
         return key in self.fields or self.fields == '__all__'
