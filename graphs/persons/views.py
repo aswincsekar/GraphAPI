@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from .utils import StructuredThingSerializer
 from .models import Person
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 from py2neo import Graph
 from rest_framework.decorators import action
@@ -22,6 +22,45 @@ class PersonViewSet(viewsets.ViewSet):
         person = Person.nodes.get(uid=pk)
         serializer = StructuredThingSerializer(person)
         return Response(serializer.data)
+
+    def create(self, request):
+        data = request.data
+        age = data.get("age", None)
+        name = data.get("name", None)
+        p = Person(name=name, age=age)
+        p.save()
+        return Response(data={"uid":p.uid,"name":p.name,"age":p.age}, status=status.HTTP_200_OK)
+
+    def update(self, request, pk=None):
+        data = request.data
+        age = data.get("age", None)
+        name = data.get("name", None)
+        p = Person.nodes.filter(uid=pk)
+        if p:
+            p.name=name
+            p.age=age
+            p.save()
+            return Response(data={"uid":p.uid,"name":p.name,"age":p.age}, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def partial_update(self, request, pk=None):
+        data = request.data
+        age = data.get("age", None)
+        name = data.get("name", None)
+        p = Person.nodes.filter(uid=pk)
+        if p:
+            p.name = name if name else p.name
+            p.age = age if age else p.age
+            p.save()
+            return Response(data={"uid": p.uid, "name": p.name, "age": p.age}, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def destroy(self, request, pk=None):
+        p = Person.nodes.filter(uid=pk)
+        if p:
+            p.delete()
+            return  Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=False)
     def shortest_path(self, request):

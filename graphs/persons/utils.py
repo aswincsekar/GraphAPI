@@ -1,3 +1,4 @@
+"""Original Source https://github.com/efagerberg/neomodel-serializer"""
 from collections import OrderedDict
 import json
 
