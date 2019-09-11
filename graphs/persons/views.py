@@ -1,5 +1,3 @@
-from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
 from .utils import StructuredThingSerializer
 from .models import Person
 from rest_framework import viewsets, status
