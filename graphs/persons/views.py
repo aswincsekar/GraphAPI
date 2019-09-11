@@ -13,7 +13,9 @@ class PersonViewSet(viewsets.ViewSet):
     A simple ViewSet for listing or retrieving users.
     """
     def list(self, request):
-        queryset = Person.nodes.all()
+        page = request.query_params.get("page",1)
+        page_size = request.query_params.get("page_size",10)
+        queryset = Person.nodes.all()[(page-1)*page_size:page*page_size]
         serializer = StructuredThingSerializer(queryset, many=True)
         return Response(serializer.data)
 

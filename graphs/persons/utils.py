@@ -69,14 +69,14 @@ class StructuredThingSerializer(object):
 
     def process_rel_def_nodes(self, rel_def, key):
         self.data[key] = []
-        for node in rel_def:
-            self.process_rel_def_node(rel_def, node, key)
+        # for node in rel_def:
+        #     self.process_rel_def_node(rel_def, node, key)
 
-    def process_rel_def_node(self, rel_def, node, key):
-        rel_def_data = StructuredThingSerializer(node).data
-        rels = rel_def.all_relationships(node)
-
-        self.process_relationships(rels, rel_def_data, key)
+    # def process_rel_def_node(self, rel_def, node, key):
+        # rel_def_data = StructuredThingSerializer(node).data
+        # rels = rel_def.all_relationships(node)
+        #
+        # self.process_relationships(rels, rel_def_data, key)
 
     def process_relationships(self, rels, rel_def_data, key):
         for rel in rels:
