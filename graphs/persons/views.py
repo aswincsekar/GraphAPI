@@ -18,7 +18,6 @@ class PersonViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
-        queryset = Person.nodes.all()
         person = Person.nodes.get(uid=pk)
         serializer = StructuredThingSerializer(person)
         return Response(serializer.data)
