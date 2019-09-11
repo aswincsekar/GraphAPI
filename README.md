@@ -13,3 +13,10 @@ Testing Graph Web Service based on python using neo4j and django.
 
 ## Future Work
 1. Use Redisgraph as backend for the shortest path problem
+
+## How to deploy
+1. clone the repo to a local directory
+2. install neo4j database on the server with stock settings running on localhost:7687
+3. install the requirements from graphs/requirements/prod.txt
+4. start the server by running python manage.py runserver
+5. the application is deployed, enjoy the APIs
