@@ -3,7 +3,7 @@ django-neomodel==0.0.4
 neo4j-driver==1.6.3
 neomodel==3.3.1
 neotime==1.7.4
-pip==19.0.3
+pip==21.1
 pytz==2019.2
 setuptools==40.8.0
 six==1.12.0
